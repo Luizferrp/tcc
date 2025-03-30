@@ -1,9 +1,11 @@
 #!/bin/bash
-DOWNLOADDIR=rawdata
+DOWNLOADDIR=download
+
+
 mkdir -p $DOWNLOADDIR
 
 if [ ! -d $DOWNLOADDIR ]; then 
-  echo 'error creating the rawdata folder';
+  echo "error creating the $DOWNLOADDIR folder";
   exit 1;
 fi
 
