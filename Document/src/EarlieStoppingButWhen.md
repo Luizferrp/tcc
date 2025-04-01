@@ -19,11 +19,11 @@
 ---
   - Autores: Springer, Berlin, Heidelberg
   - TemaPrincipal: Earlie Exists
-  - Método: CNN
+  - Método: NN
   - BaseAmostral: None
   - Resultados: 
   - Ferramentas: Python
-  - LimitaçõesOuCriticas: a experimentação não traz resultados a não ser de laboratórios, i.e. experimentais a fins de exemplo, a unica premissa é o teste teórico do earlie exits
+  - LimitaçõesOuCriticas: a experimentação teórica do earlie exits
   
 [outros]
   - citacao: Prechelt, L. (1998). Early Stopping - But When?. In: Orr, G.B., Müller, KR. (eds) Neural Networks: Tricks of the Trade. Lecture Notes in Computer Science, vol 1524. Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-49430-8_3
