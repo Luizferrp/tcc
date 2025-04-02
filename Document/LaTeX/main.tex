@@ -65,8 +65,8 @@ Bacharelado em Ciência da Computação -- PUCPR\\
 
 \author{
     Turma U -- Equipe 03 \\
-    Eduarda Dallagrana,  Luiz Pereira, Kaua Nunes, \red{Nome4 Sobrenome4} \\
-    {\tt\small \red{dudadallagrana@gmail.com}, 0009-0008-3781-0134, \red{email3}, \red{email4}}
+    Eduarda Dallagrana,  Luiz Pereira, Kaua Nunes, Henrique conceição \\
+    {\tt\small \red{dudadallagrana@gmail.com}, 0009-0008-3781-0134, \red{email3}, henrique.conceicao19.hc@gmail.com}
 }
 \maketitle
 
@@ -79,7 +79,7 @@ Abordagens tradicionais de detecção de intrusão, como árvores de decisão e 
 
 Com o crescimento exponencial dos dispositivos de processamento limitado, Iot e a dependência crescente de software de terceiros, o desenvolvimento de sistemas de detecção de intrusão mais rápidos e eficientes são a única defesa dos usuários contra ataques. O desenvolvimento uma solução de alta performace e baixo consumo de hardware capaz de detectar ameaças em tempo real, protegendo tanto dispositivos limitados quanto redes públicas, evita que dados sensíveis de se tornarem prejuízo.
 
-\subsection {Sistemas de Detecção de Intrusão}
+\subsection{Sistemas de Detecção de Intrusão}
 
     O Instituto Nacional de Padrões e Tecnologia (NIST) define uma intrusão como qualquer ação cujo objetivo seja comprometer a confidencialidade, integridade e disponibilidade de um dispositivo, sistema ou rede, além de violar seus mecanismos de segurança (BACE; MELL, 2001). Dessa forma, um Sistema de Detecção de Intrusão (Intrusion Detection System – IDS) pode ser descrito como um conjunto de ferramentas automatizadas responsáveis por monitorar e analisar eventos em redes ou sistemas computacionais, buscando identificar possíveis atividades maliciosas.
     
@@ -102,15 +102,145 @@ Com o crescimento exponencial dos dispositivos de processamento limitado, Iot e 
     
     As CNNs têm se tornado uma abordagem promissora para a detecção de intrusão em redes, devido à sua capacidade de analisar grandes volumes de dados e identificar ameaças de forma automática e eficiente.
 
+\subsection{apreendizagem profunda de maquina}
+
+\subsection{tecnicas de avaliação}
+
+\subsection{tecnicas de refinamento classicas}
 
 
-\subsection{Trabalhos Relacionados}
+\section{Trabalhos Relacionados}
 
-    (BISWAS, 2018) realiza a comparação entre diversas abordagens de aprendizado de máquina, diferentes misturas de features para os algoritmos de classificação, abordando as  vantagens e desvantagens do uso de cada uma das técnicas e ferramentas, realizando um estudo
+\subsection{metodologia}
+
+  As palavras chaves para busca dos artigos se basearam em 
+
+\subsection{Revisão}
+
+
+    \cite{1} realiza a comparação entre diversas abordagens de aprendizado de máquina, diferentes misturas de features para os algoritmos de classificação, abordando as  vantagens e desvantagens do uso de cada uma das técnicas e ferramentas, realizando um estudo
     comparativo da abordagem de classificadores
 
-    (AHMAD et al., 2020) Realiza um estudo de sistemas de detecção de intrusão em redes utilizando artigos e conhecimentos recentes como o progresso do uso de Aprendizado de máquina e inteligência artificial no campo dos sistemas de detecção de intrusão, bem como uma análise criteriosa de performance, bases utilizadas e precisão.
+    \cite{2} Realiza um estudo de sistemas de detecção de intrusão em redes utilizando artigos e conhecimentos recentes como o progresso do uso de Aprendizado de máquina e inteligência artificial no campo dos sistemas de detecção de intrusão, bem como uma análise criteriosa de performance, bases utilizadas e precisão.
 
+    \cite{3} O artigo mostra os desafios modernos de NIDS como:
+
+    Volume de Dados: A crescente quantidade de dados trafegando nas redes torna a detecção de intrusões mais complexa e requer mais velocidade para continuidade da operação dos sistemas impondo-se barreiras entre velocidade e acurácia nas técnicas convencionais de análise.
+    
+    Precisão: As técnicas tradicionais requerem alto grau de intervenção humana ao considerarem usuos de modelos rasos principalmente ao se basearem em outliers, causando muitos falsos negativos
+    
+    Diversidade e Dinamismo: A crescente variedade de dispositivos e protocolos torna desafiador diferenciar tráfego normal de anormal. Ademais, as redes são dinâmicas e mutáveis, dificultando a criação de padrões estáticos para identificação de ameaças.
+    
+    Ataques de Baixa Frequência e zero day: Esses ataques são particularmente desafiadores para técnicas tradicionais devido ao desbalanceamento ou inexistencia dos datasets de treinamento.
+
+    e limitações de pesquisas como: 
+            
+    Métodos de "shallow classifiers" de detecção de intrusão possuem muitas limitações com dessas abordagens que acabam demandando grande envolvimento de especialistas humanos para interpretação de dados, identificação de padrões e ajustes de regras, limitando a escalabilidade e agilidade na detecção de novas ameaças.
+        
+    O deep learning (DL) tem se destacado como uma solução avançada para modelagem de relações complexas e representações mais abstratas de dados. Dentro desse campo, autoencoders se mostram promissores ao permitirem extração de características relevantes de forma não-linear, sem necessidade de rótulos. Isso facilita a identificação de anomalias sem um conjunto fixo de assinaturas predefinidas.
+        
+    Para superar as limitações das abordagens clássicas e do deep learning isoladamente, o artigo propos 
+    Autoencoders de Deep Learning: Utilizados para capturar a dinâmica dos padrões de tráfego de rede, reduzindo a necessidade de interação humana e aumentando a capacidade de interpretação genérica.
+    
+    Random Forest: Aplicado diretamente sobre as saídas do autoencoder, sem a necessidade de um layout achatado (flatten), garantindo maior preservação da estrutura dos dados e melhor capacidade de classificação.
+    
+    Essa abordagem híbrida busca aliar a robustez do deep learning à alta acurácia do Random Forest, criando um sistema capaz de lidar com a dinamicidade das redes modernas sem comprometer a confiabilidade na detecção de intrusões.
+
+    \cite{4} A segurança cibernética enfrenta desafios crescentes devido à explosão no volume e na variedade de ataques. O aumento no número de ataques zero-day torna os sistemas de detecção de intrusão (IDS) baseados em assinaturas menos eficazes, pois dependem de bancos de dados com históricos de ataques conhecidos. Para enfrentar essas limitações, propõe-se uma abordagem baseada na combinação de autoencoders e Support Vector Machine (SVM).
+
+Desafios Atuais na Detecção de Ataques Zero-Day
+
+A dependência de assinaturas históricas limita a detecção de ataques novos e desconhecidos.
+
+Métodos convencionais de detecção de outliers apresentam altas taxas de falso negativo.
+
+Estudos indicam que ataques zero-day podem permanecer ativos por um médio de 10 meses antes de serem detectados, comprometendo sistemas durante esse período.
+
+Estatísticas mostram que 62\% dos ataques só são identificados após comprometerem os sistemas.
+
+Em 2019, o número de ataques zero-day superou os três anos anteriores, evidenciando a necessidade urgente de modelos mais eficazes.
+
+Proposta de Solução: Autoencoder + SVM
+
+A solução proposta explora os pontos fortes do deep learning e da SVM para melhorar a detecção de ataques zero-day:
+
+Autoencoder: Atua como um detector leve de outliers, capturando padrões de tráfego normais e identificando desvios, o que permite detectar ataques desconhecidos com alta taxa de recall.
+
+SVM: Utilizado para classificar os padrões extraídos pelo autoencoder sem a necessidade de um layout achatado (flatten), garantindo maior preservação da estrutura dos dados e melhor capacidade de classificação.
+
+Benefícios da Abordagem
+
+Redução da dependência de especialistas humanos para ajustes constantes.
+
+Maior capacidade de adaptação a novas ameaças sem necessária reconfiguração manual.
+
+Melhor detecção de ataques de baixa frequência e zero-day, que passam despercebidos por abordagens tradicionais.
+
+A combinação de autoencoders e SVM representa um passo significativo para sistemas de detecção de intrusão mais eficientes e adaptáveis aos desafios das redes modernas.
+
+    \cite{5} **Revisão de Literatura: Otimização do Treinamento de Redes Neurais**
+
+    O treinamento de redes neurais profundas enfrenta desafios significativos devido à natureza complexa da superfície de custo, que é tipicamente não-quadrática, não-convexa e de alta dimensionalidade. Como resultado, o algoritmo de backpropagation pode ser lento e não há garantias de que a convergência para uma solução adequada ocorra de maneira rápida ou sequer aconteça (Sompolinsky et al., 37; Darken & Moody, 9; Sutton, 38; Murata et al., 28). Para mitigar esses problemas, diversas técnicas foram propostas, incluindo taxas de aprendizado adaptativas e early stopping.
+    
+    ### Taxas de Aprendizado Adaptativas
+    
+    As taxas de aprendizado desempenham um papel crucial na eficiência do treinamento de redes neurais. Diferentes abordagens foram propostas para ajustar automaticamente a taxa de aprendizado com base no erro, de modo a controlar a velocidade de convergência. Uma das estratégias sugeridas é equalizar a velocidade de aprendizado, permitindo que cada peso possua sua própria taxa de aprendizado, proporcional à raiz quadrada do número de entradas da unidade correspondente. Além disso, é recomendado que os pesos das camadas inferiores sejam maiores do que os das camadas superiores para melhor estabilização do treinamento.
+    
+    ### Early Stopping como Mecanismo de Regularização
+    
+    O early stopping é uma técnica amplamente utilizada para evitar o overfitting em redes neurais. O processo consiste em interromper o treinamento assim que o erro no conjunto de validação começa a aumentar, impedindo que o modelo se ajuste excessivamente aos dados de treinamento. Os principais passos do early stopping incluem:
+    
+    1. **Divisão dos Dados:** O conjunto de treinamento é separado em subconjuntos de treino e validação, frequentemente utilizando uma proporção de 2:1.
+    2. **Monitoramento Periódico:** O modelo é treinado apenas com os dados de treino, enquanto a perda no conjunto de validação é verificada periodicamente, por exemplo, a cada cinco épocas.
+    3. **Identificação do Ponto Ideal:** Se a perda de validação começar a aumentar em relação à última medição, o treinamento é interrompido.
+    4. **Utilização dos Melhores Pesos:** Os pesos da rede no momento imediatamente anterior ao aumento da perda de validação são utilizados como a melhor representação do modelo.
+    
+    O early stopping assume que a perda de validação é um indicador da capacidade de generalização do modelo, ajudando a melhorar o desempenho em dados não vistos (Why Early Stopping?).
+    
+    ### Conclusão
+    
+    Diante dos desafios inerentes ao treinamento de redes neurais, a otimização do processo é essencial para garantir modelos eficazes e eficientes. O uso de taxas de aprendizado adaptativas e early stopping demonstrou ser uma abordagem promissora para mitigar problemas como a convergência lenta e o overfitting. Assim, a seleção criteriosa dessas técnicas pode levar a modelos mais robustos e com melhor capacidade de generalização.
+        
+
+    \cite{6}
+    \cite{7}
+    \cite{8}
+    \cite{9}
+    \cite{10}
+    \cite{11}
+    \cite{12}
+    \cite{13}
+    %sdn
+    \cite{14} Sistemas de Detecção de Intrusão em Redes (NIDS), Aprendizado de Máquina (ML) e Aprofundado (DL) e Redes Definidas por Software (SDN).
+    • NIDS: Sistemas projetados para detectar atividades maliciosas em redes, como vírus, worms e ataques DDoS. Podem ser baseados em assinatura (detecção de ameaças conhecidas) ou anomalias (detecção de comportamentos incomuns).
+    • ML/DL: Técnicas como SVM, Random Forest, Redes Neurais Convolucionais (CNN) e Autoencoders são aplicadas para melhorar a precisão e reduzir falsos positivos em NIDS.
+    • SDN: Arquitetura que separa os planos de controle e dados, permitindo programabilidade e gerenciamento centralizado. Essa flexibilidade é ideal para implementar NIDS dinâmicos e escaláveis.
+    A revisão evidenciou que a combinação de SDN, ML e DL oferece vantagens significativas para NIDS, como maior precisão e adaptabilidade. No entanto, desafios persistem, como a otimização de recursos computacionais e a criação de datasets mais representativos. Como direção futura, propos investigar:
+    • Técnicas híbridas (ex.: SOM + Redes Neurais Recorrentes).
+    • Implementação em infraestruturas críticas (ex.: data centers).
+    %survey current network
+    \cite{15} Fundamentação Teórica
+    Os Sistemas de Detecção de Intrusão em Redes (NIDS) são essenciais para a segurança cibernética, atuando na identificação de atividades maliciosas em tempo real. Eles se dividem em duas abordagens principais:
+        1. Baseada em Assinaturas: Compara o tráfego com um banco de dados de padrões conhecidos de ataques (ex.: vírus, worms). É eficaz contra ameaças conhecidas, mas falha contra ataques novos. Algoritmos como Aho-Corasick e expressões regulares são comumente usados para inspeção profunda de pacotes.
+        2. Baseada em Anomalias: Cria um perfil do tráfego "normal" e alerta sobre desvios. Técnicas incluem métodos estatísticos, aprendizado de máquina (ex.: redes bayesianas) e mineração de dados. Apesar de promissora, essa abordagem sofre com altas taxas de falsos positivos.
+        O estado da arte em NIDS evoluiu para combinar técnicas reativas (assinaturas) e proativas (anomalias), porém persistem desafios:
+        • Limitações: Falsos positivos, desempenho em redes de alta velocidade e criptografia.
+        • Futuro: Tendência para sistemas distribuídos e autônomos, como NIPS (Prevenção de Intrusão).
+    Abordagem metodológica sugerida:
+        • Quantitativa: Avaliação de métricas de desempenho (ex.: throughput, taxa de detecção).
+        • Qualitativa: Análise de falsos positivos/negativos em datasets reais (ex.: CICIDS2017).
+    %performace
+    \cite{16} A análise de sentimentos é uma aplicação crítica de NLP, tradicionalmente baseada em métodos como Bag of Words (BoW) e lexicons, que exigem extração manual de features. Com o avanço do deep learning, técnicas como Word2Vec, GloVe e modelos de ensemble (e.g., NsGA) permitem extração automática de features e melhor desempenho. O artigo propõe um modelo híbrido que combina features superficiais (handcrafted) e profundas (deep learning), superando limitações de generalização e especialização. Segundo Pandian (2021), a integração de vetores de palavras afetivas (NA), genéricas (NG) e superficiais (Ns) resulta em uma melhoria significativa na precisão de classificação (até 95\% F-Score em alguns datasets).
+
+
+    Principais lacunas identificadas:
+    1. Dependência de grandes volumes de dados para modelos de deep learning.
+    2. Complexidade computacional em ensembles (e.g., NsGA demanda 980s para treinamento).
+
+    Considerações Finais
+O estudo demonstra que modelos híbridos (e.g., NsGA) superam abordagens tradicionais em análise de sentimentos, mas exigem otimização para reduzir custos computacionais. Como futuros trabalhos, sugere-se:
+    • Aplicação em outros idiomas (e.g., português).
+    • Uso de técnicas de compressão de modelos (e.g., quantização) para viabilizar implantação em dispositivos edge.
 
 \begin{table}[!htb]
     \centering
