@@ -1,7 +1,6 @@
 #!/bin/bash
 DOWNLOADDIR=download
 
-
 mkdir -p $DOWNLOADDIR
 
 if [ ! -d $DOWNLOADDIR ]; then 
