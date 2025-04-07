@@ -2,7 +2,7 @@ Based on the available information, I'll fill out the template:
 
 [Referencia]
 ---
-- Autores: Not explicitly mentioned in the available text
+- Autores: Hari Mohan Rai 1 , Joon Yoo 1,* and Saurabh Agarwal
 - Data: 2024
 - Titulo: Improved Network Intrusion Detection Techniques Using the Feature Engineering Approach
 - Disponibilização: Mathematics journal [1]
