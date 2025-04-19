@@ -1,5 +1,5 @@
 #!/bin/bash
-DOWNLOADDIR=download
+DOWNLOADDIR=data
 
 mkdir -p $DOWNLOADDIR
 
