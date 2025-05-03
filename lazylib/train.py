@@ -1,6 +1,7 @@
 import torch
 from torch.utils.data import DataLoader, Dataset
-from sklearn.metrics import auc, roc_curve, accuracy_score, ConfusionMatrixDisplay, confusion_matrix, roc_auc_score
+import scikit
+from sciktlearn.metrics import auc, roc_curve, accuracy_score, ConfusionMatrixDisplay, confusion_matrix, roc_auc_score
 from .now import now
 from tqdm import tqdm
 from .device import device

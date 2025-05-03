@@ -1,5 +1,5 @@
 from .now import now
-from .make import make
+from .make import make, make2, make3
 from .device import device
 from .validate import takeConfusionMatrix, takeRocCurve, register
 from .models.AlexNet import AlexNet

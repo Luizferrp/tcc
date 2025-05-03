@@ -10,12 +10,26 @@ import numpy as np
 import random
 import torch
 
-def transformate(t: transforms = ToImage):
-    return transforms.Compose([
-        t(),
-    ])
+class mmodel:
+    def __init__(self, name):
+        self.name = name
+    
+    def data(path_data:str, buffer:int) -> None:
+        pass
 
-def make(EPOCHS: int, BATCH_SIZE: int, LEARNING_RATE: int, csv_path: str, out_path:str, MODEL: nn.Module, SEED:int = 1701, xcol: int=1, transform: transforms=transformate()) -> tuple:
+    def buffer(path_out:str) -> None:
+        pass
+
+    def train(epoch:str) -> None:
+        pass
+
+    def validate(epoch:str) -> None:
+        pass
+
+    def epoch() -> None:
+        pass
+
+def make(EPOCHS: int, BATCH_SIZE: int, LEARNING_RATE: int, csv_path: str, out_path:str, MODEL: nn.Module, SEED:int = 1701, xcol: int=1, transform: transforms=transforms.Compose([ ToImage() ])) -> tuple:
     
     loss_fn   = nn.CrossEntropyLoss()
     optimizer = optim.Adam(MODEL.parameters(), lr=LEARNING_RATE)
@@ -33,22 +47,6 @@ def make(EPOCHS: int, BATCH_SIZE: int, LEARNING_RATE: int, csv_path: str, out_pa
     print("Finished experiment!") 
     return MODEL
 
-class mmodel:
-    def __init__(self, name):
-        self.name = name
-    
-    def data(path_data:str, buffer:int) -> None:
-        pass
-
-    def buffer(path_out:str) -> None:
-        pass
-
-    def train(epoch:str) -> None:
-        pass
-
-    def validate(epoch:str) -> None:
-        pass
-
 def make2(model:object, epoch:int, buffer:int, path_data:str, path_out:str='output', seed:int = 91) -> dict:
 
     np.random.seed(seed)
@@ -64,3 +62,17 @@ def make2(model:object, epoch:int, buffer:int, path_data:str, path_out:str='outp
     print('finish')
     return model
     
+def make3(model:object, epoch:int, buffer:int, path_data:str, path_out:str='output', seed:int = 91) -> dict:
+
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    model.data(path_data, buffer)
+    model.buffer(path_out)
+
+    while model.epoch() :
+        model.train(epoch)
+        model.validate(epoch)
+
+    print('finish')
+    return model
