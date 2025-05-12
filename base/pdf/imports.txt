@@ -1,0 +1,30 @@
+\begin{thebibliography}{00}
+
+
+    \bibitem{b1}BISWAS, Saroj Kr. Intrusion Detection Using Machine Learning: A Comparison Study. 2018. NIT Silchar.
+    
+    \bibitem{b2}AHMAD, Zeeshan et al. Network intrusion detection system: A systematic study of machine learning and deep learning approaches. 2020. UniversitiMalaysia Sarawak.
+    
+    \bibitem{b3} Nathan Shone; Tran Nguyen Ngoc; Vu Dinh Phai; Qi Shi  (February 2018), ''A Deep Learning Approach to Network Intrusion Detection'', Australian Journal of Mechanical Engineering, IEEE Transactions on Emerging Topics in Computational Intelligence ( Volume: 2, Issue: 1, February 2018)
+    
+    \bibitem{b4} Springer, Berlin, Heidelberg, ''Early Stopping - But When?'' Part of the book series: Lecture Notes in Computer Science ((LNCS,volume 1524))
+    
+    \bibitem{b5} Hanan Hindy,Robert Atkinson, Christos Tachtatzis,Jean-Noël Colin, Ethan Bayne, and Xavier Bellekens, (14 October 2020), ''Utilising Deep Learning Techniques for Effective Zero-Day Attack Detection'' ELECTRONIC COMMERCE RESEARCH AND APPLICATIONS, doi: https://doi.org/10.3390/electronics9101684
+    
+    \bibitem{b6} Akinul Islam Jony, Arjun Kumar Bose Arnob, (August 8, 2024), ''Securing the Internet of Things: Evaluating Machine Learning Algorithms for Detecting IoT Cyberattacks Using CIC-IoT2023 Dataset'', DOI: 10.5815/ijitcs.2024.04.04
+    
+    \bibitem{b7} Deepa Krishnan, Pravin Shrinath, 14 February 2024, ''Robust Botnet Detection Approach for Known and Unknown Attacks in IoT Networks Using Stacked Multi-classifier and Adaptive Thresholding''
+    
+    #      \bibitem{b8} Akinul Islam Jony, Arjun Kumar Bose Arnob, 2024 (Volume 16, Issue 4, pp.56-65), ''Securing the Internet of Things: Evaluating Machine Learning Algorithms for Detecting IoT Cyberattacks Using CIC-IoT2023 Dataset''
+    
+    \bibitem{b9} Charles Westphal, (18 Nov 2024), ''Feature Selection for Network Intrusion Detection'', https://doi.org/10.48550/arXiv.2411.11603
+    
+    \bibitem{b10} A. Pasumpon Pandian, 2021, ''Performance Evaluation and Comparison using Deep Learning Techniques in Sentiment Analysis'', DOI: https://doi.org/10.36548/jscp.2021.2.006
+    
+    \bibitem{b11} Sailesh Kumar, 19 Dec 2007, ''Survey of Current Network Intrusion Detection Techniques'', http://www.cse.wustl.edu/~jain/cse571-07/ftp/ids/
+    
+    \bibitem{b12} Nasrin Sultana1, Naveen Chilamkurti1, Wei Peng2, Rabei Alhadad, 26 December 2017, ''Survey on SDN based network intrusion detection system sing machine learning approaches'', https://doi.org/10.1007/s12083-017-0630-0
+    
+    \bibitem{b13} Hari Mohan Rai 1 , Joon Yoo 1,* and Saurabh Agarwal, 11 December 2024, ''The Improved Network Intrusion Detection Techniques Using the Feature Engineering Approach with, Boosting Classifiers'', https://www.mdpi.com/2227-7390/12/24/3909
+    
+\end{thebibliography}
