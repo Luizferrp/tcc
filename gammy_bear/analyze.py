@@ -340,10 +340,10 @@ class analyzer():
     else:
         if target is None:
             # Gráfico de barras simples (frequência)
-            freq = coluna.value_counts()
+            freq = self.df[coluna].value_counts()
             plt.figure(figsize=(10, 5))
-            sns.barplot(x=freq.index, y=freq.values, palette='viridis')
-            plt.title(f'Distribuição de {coluna.name}')
+            sns.barplot(x=freq.index, y=freq.values)
+            plt.title(f'Distribuição de {self.df[coluna].name}')
             plt.ylabel('Frequência')
             plt.xticks(rotation=45)
             plt.tight_layout()
