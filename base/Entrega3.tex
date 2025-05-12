@@ -78,12 +78,12 @@ Bacharelado em Ciência da Computação -- PUCPR\\
 
 \section{Método Proposto}
 
-    Este trabalho propõe uma abordagem voltada à detecção de intrusões em redes computacionais utilizando Redes Neurais Convolucionais (CNNs), com foco na viabilidade de implementação em ambientes com recursos computacionais limitados. A principal motivação está na capacidade das CNNs de identificar padrões complexos de tráfego malicioso com alta precisão, mesmo com hardwares limitados.
-    
-    Além das CNNs, também avaliamos a eficácia de classificadores tradicionais, como K-Nearest Neighbors (KNN), Decision Tree e Random Forest, com o objetivo de comparar seu desempenho em relação à solução baseada em Deep Learning. Todos os classificadores profundos foram implementados na linguagem Python, utilizando as bibliotecas PyTorch (com suporte CUDA ou MPS para suporte a aceleração por hardware) e Scikit-learn para experimentos com aprendizado de máquina tradicional. A linguagem Python tem se tornado uma das mais populares quando o assunto é aprendizado de máquina e ciência de dados, especialmente devido ao suporte robusto a bibliotecas especializadas (Nagpal, A.; Gabrani, G. - 2019).
-    
-    Utiliza-se como base de dados o NSL-KDD, amplamente reconhecido na literatura para avaliação de sistemas de detecção de intrusão. NSL-KDD é um dataset para pesquisa em detecção de intrusões em redes, versão revisada e refinada do conjunto de dados da KDD Cup'99, removendo vários de seus problemas integrais. O NSL-KDD foi desenvolvido proporcionando uma base de dados mais robusta. Uma das principais melhorias é a remoção de duplicatas. (Mahbod Tavallaee - 2009).
+    Este trabalho propõe uma comparação entre abordagens voltada à detecção de intrusões em redes computacionais utilizando Redes Neurais Convolucionais (CNNs), com foco na viabilidade de implementação em ambientes com recursos computacionais limitados. A principal motivação está na capacidade das CNNs de identificar padrões complexos de tráfego malicioso com alta precisão, mesmo com hardwares limitados.
+
+    Utilizou-se como base de dados o NSL-KDD, amplamente reconhecido após a kdd cup, para avaliação de sistemas de detecção de intrusão. NSL-KDD é um dataset para treinamento de detecção de intrusões em redes, versão revisada e refinada do conjunto de dados KDD'99, removendo vários de seus problemas integrais, principalmente as réplicas de registros. O NSL-KDD foi desenvolvido proporcionando uma base de dados mais robusta\cite{b15}.
     Este conjunto de dados também é um conjunto de dados de 41 recursos com os ataques divididos em quatro classes:\textit{ Denial of Service }(DoS),\textit{ Probe},\textit{ Remote to Local} (R2L), and \textit{User to Root} (U2R). A seção\textit{ Dados Utilizados} fornece mais informações.
+    
+    A linguagem escolhida foi Python por ter se tornado uma das mais populares quando o assunto é aprendizado de máquina e ciência de dados, especialmente devido ao suporte robusto a bibliotecas especializadas\cite{b14}. Todos os classificadores profundos foram implementados  utilizando as bibliotecas PyTorch (com suporte CUDA ou MPS para suporte a aceleração por hardware). Além das CNNs, também avaliamos a eficácia de classificadores tradicionais, desenvolvidos com Scikit-learn, como K-Nearest Neighbors (KNN), Decision Tree e Random Forest, com o objetivo de comparar seu desempenho em relação à solução baseada em Deep Learning.
 
 \subsection{Visão Geral do Método Proposto}
     
