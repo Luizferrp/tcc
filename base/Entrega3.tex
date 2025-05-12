@@ -80,7 +80,7 @@ Bacharelado em Ciência da Computação -- PUCPR\\
 
     Este trabalho propõe uma abordagem voltada à detecção de intrusões em redes computacionais utilizando Redes Neurais Convolucionais (CNNs), com foco na viabilidade de implementação em ambientes com recursos computacionais limitados. A principal motivação está na capacidade das CNNs de identificar padrões complexos de tráfego malicioso com alta precisão, mesmo com hardwares limitados.
     
-    Além das CNNs, também avaliamos a eficácia de classificadores tradicionais, como K-Nearest Neighbors (KNN), Decision Tree e Random Forest, com o objetivo de comparar seu desempenho em relação à solução baseada em Deep Learning. Todos os classificadores foram implementados na linguagem Python, utilizando as bibliotecas PyTorch (com suporte CUDA para aceleração por GPU) e Scikit-learn para experimentos com aprendizado de máquina tradicional. A linguagem Python tem se tornado uma das mais populares quando o assunto é aprendizado de máquina e ciência de dados, especialmente devido ao suporte robusto a bibliotecas especializadas (Nagpal, A.; Gabrani, G. - 2019).
+    Além das CNNs, também avaliamos a eficácia de classificadores tradicionais, como K-Nearest Neighbors (KNN), Decision Tree e Random Forest, com o objetivo de comparar seu desempenho em relação à solução baseada em Deep Learning. Todos os classificadores profundos foram implementados na linguagem Python, utilizando as bibliotecas PyTorch (com suporte CUDA ou MPS para suporte a aceleração por hardware) e Scikit-learn para experimentos com aprendizado de máquina tradicional. A linguagem Python tem se tornado uma das mais populares quando o assunto é aprendizado de máquina e ciência de dados, especialmente devido ao suporte robusto a bibliotecas especializadas (Nagpal, A.; Gabrani, G. - 2019).
     
     Utiliza-se como base de dados o NSL-KDD, amplamente reconhecido na literatura para avaliação de sistemas de detecção de intrusão. NSL-KDD é um dataset para pesquisa em detecção de intrusões em redes, versão revisada e refinada do conjunto de dados da KDD Cup'99, removendo vários de seus problemas integrais. O NSL-KDD foi desenvolvido proporcionando uma base de dados mais robusta. Uma das principais melhorias é a remoção de duplicatas. (Mahbod Tavallaee - 2009).
     Este conjunto de dados também é um conjunto de dados de 41 recursos com os ataques divididos em quatro classes:\textit{ Denial of Service }(DoS),\textit{ Probe},\textit{ Remote to Local} (R2L), and \textit{User to Root} (U2R). A seção\textit{ Dados Utilizados} fornece mais informações.
@@ -325,18 +325,15 @@ O ambiente descrito é compatível com os requisitos da solução~proposta?
     \bibitem{b12} Nasrin Sultana1, Naveen Chilamkurti1, Wei Peng2, Rabei Alhadad, 26 December 2017, ''Survey on SDN based network intrusion detection system sing machine learning approaches'', https://doi.org/10.1007/s12083-017-0630-0
     
     \bibitem{b13} Hari Mohan Rai 1 , Joon Yoo 1,* and Saurabh Agarwal, 11 December 2024, ''The Improved Network Intrusion Detection Techniques Using the Feature Engineering Approach with, Boosting Classifiers'', https://www.mdpi.com/2227-7390/12/24/3909
+
+    \bibitem{b14} Nagpal, A.; Gabrani, G. (2019), ''Python for Data Analysis'', Springer, Berlin, Heidelberg, doi:10.1007/978-3-030-15688-0.
+    
+    \bibitem{b15} Mahbod Tavallaee, Ebrahim Bagheri, Wei Lu, and Ali A. Ghorbani, 2009, ''A detailed analysis of the KDD CUP 99 data set'', IEEE Symposium on Computational Intelligence for Security and Defense Applications, Ottawa, ON, Canada, pp. 1-6, doi: 10.1109/CISDA.2009.5356528.
     
 \end{thebibliography}
 
 % GENERAL Python FAQ — Python 3.7.4 documentation. <https://docs.python.
 % org/3/faq/general.html#what-is-python>. Accessed: 2019-07-20.
-
-% Nagpal, A.; Gabrani, G. Python for data analytics, scientific and technical
-% applications. In: 2019 Amity International Conference on Artificial Intelligence
-% (AICAI). [S.l.: s.n.], 2019. p. 140–145.
-
-% M. Tavallaee, E. Bagheri, W. Lu and A. A. Ghorbani, "A detailed analysis of the KDD CUP 99 data set," 2009 IEEE Symposium on Computational Intelligence for Security and Defense Applications, Ottawa, ON, Canada, 2009, pp. 1-6, doi: 10.1109/CISDA.2009.5356528.
-
 
 
 \end{document}
