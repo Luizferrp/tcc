@@ -1,0 +1,342 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage[portuguese]{babel}
+\usepackage[colorlinks=true,allcolors=black]{hyperref}
+\usepackage[acronym]{glossaries}
+\usepackage{enumerate}% http://ctan.org/pkg/enumerate
+
+% não permite separar acrônimo em duas linhas (só a sigla estar na outra linha)
+\newacronymstyle{long-short-br}
+{%
+  \GlsUseAcrEntryDispStyle{long-short}%
+}%
+{%
+  \GlsUseAcrStyleDefs{long-short}%  
+  \renewcommand*{\genacrfullformat}[2]{%
+    \glsentrylong{##1}##2~\textup{(\firstacronymfont{\glsentryshort{##1}})}%
+  }%
+  \renewcommand*{\Genacrfullformat}[2]{%
+    \Glsentrylong{##1}##2~\textup{(\firstacronymfont{\glsentryshort{##1}})}%
+  }%
+  \renewcommand*{\genplacrfullformat}[2]{%
+    \glsentrylongpl{##1}##2~\textup{(\firstacronymfont{\glsentryshortpl{##1}})}%
+  }%
+  \renewcommand*{\Genplacrfullformat}[2]{%
+    \Glsentrylongpl{##1}##2~\textup{(\firstacronymfont{\Glsentryshortpl{##1}})}%
+  }%
+}
+\setacronymstyle{long-short-br}
+
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{soul}
+\setuldepth{Berlin}
+
+
+\definecolor{headercolor}{RGB}{220,220,220} % Cinza espacial para cabeçalhos
+\definecolor{rowcolor}{RGB}{245,245,245} % branco lua para linhas alternadas
+\newcommand\red[1]{{\textcolor{red}{#1}}}
+
+\frenchspacing
+
+\sloppy
+\begin{document}
+
+\input{acronyms} % importa os acrônimos de acronyms.tex
+
+\title{Especificação Formal da Solução\\
+\vspace{0.4cm}
+Detecção de Intrusão de Redes em CNNs para hardwares limitados\\
+\vspace{0.4cm}
+{\Large Projeto de Pesquisa Científica\\
+Experiência Criativa: Projeto Transformador I\\
+Bacharelado em Ciência da Computação -- PUCPR\\
+2025}}
+
+\author{
+    Turma {U} -- Equipe {3} \\
+    Eduarda Dallagrana, Henrique Conceição, Kaua Nunes, Luiz Pereira\\
+    {\centering\small dudadallagrana@gmail.com, l.pereira22@pucpr.edu.br, kauanunnes@hotmail.com, henrique.conceicao19.hc@gmail.com}
+}
+
+
+\maketitle
+
+\section{Método Proposto}
+
+    Este trabalho propõe uma abordagem voltada à detecção de intrusões em redes computacionais utilizando Redes Neurais Convolucionais (CNNs), com foco na viabilidade de implementação em ambientes com recursos computacionais limitados. A principal motivação está na capacidade das CNNs de identificar padrões complexos de tráfego malicioso com alta precisão, mesmo com hardwares limitados.
+    
+    Além das CNNs, também avaliamos a eficácia de classificadores tradicionais, como K-Nearest Neighbors (KNN), Decision Tree e Random Forest, com o objetivo de comparar seu desempenho em relação à solução baseada em Deep Learning. Todos os classificadores foram implementados na linguagem Python, utilizando as bibliotecas PyTorch (com suporte CUDA para aceleração por GPU) e Scikit-learn para experimentos com aprendizado de máquina tradicional. A linguagem Python tem se tornado uma das mais populares quando o assunto é aprendizado de máquina e ciência de dados, especialmente devido ao suporte robusto a bibliotecas especializadas (Nagpal, A.; Gabrani, G. - 2019).
+    
+    Utiliza-se como base de dados o NSL-KDD, amplamente reconhecido na literatura para avaliação de sistemas de detecção de intrusão. NSL-KDD é um dataset para pesquisa em detecção de intrusões em redes, versão revisada e refinada do conjunto de dados da KDD Cup'99, removendo vários de seus problemas integrais. O NSL-KDD foi desenvolvido proporcionando uma base de dados mais robusta. Uma das principais melhorias é a remoção de duplicatas. (Mahbod Tavallaee - 2009).
+    Este conjunto de dados também é um conjunto de dados de 41 recursos com os ataques divididos em quatro classes:\textit{ Denial of Service }(DoS),\textit{ Probe},\textit{ Remote to Local} (R2L), and \textit{User to Root} (U2R). A seção\textit{ Dados Utilizados} fornece mais informações.
+
+\subsection{Visão Geral do Método Proposto}
+    
+    A metodologia combina a capacidade das CNNs com a eficiência necessária para esses cenários, visando um modelo leve e eficaz na detecção de padrões anômalos no tráfego de rede.
+    
+    O processo começa com o pré-processamento dos dados, utilizando o conjunto NSL-KDD, que é codificado e normalizado para o treinamento. O modelo baseado em CNN é então desenvolvido com uma arquitetura otimizada para detecção de intrusões, adaptando camadas convolucionais ao formato tabular dos dados e aplicando regularização para melhorar a generalização. A técnica de transferência de aprendizado é utilizada para agilizar o treinamento, reutilizando pesos de modelos semelhantes.
+
+    A \textit{Figura 1} apresenta uma visão geral do fluxo do método proposto. O processo inicia-se pela aquisição e preparação dos dados, seguida pela divisão em conjuntos de treino e teste. A partir disso, são aplicadas duas abordagens paralelas: uma utilizando modelos convencionais e outra com redes neurais convolucionais. As métricas de desempenho são utilizadas para avaliar os resultados de cada modelo, conforme será discutido sucintamente no módulo \textit{Protocolo Experimental}.
+
+    Por meio dessa abordagem comparativa, o trabalho busca validar a eficácia das CNNs em contextos com limitações e analisar criticamente sua aplicabilidade em relação a soluções mais tradicionais, visando contribuir para a criação de sistemas de detecção de intrusões mais robustos e eficientes.
+    
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fluxo_metodo.jpeg}
+        \caption{Fluxo geral do método proposto }
+        \label{fig:enter-label}
+    \end{figure}
+
+\subsection{Dados Utilizados}
+      
+    Nesta pesquisa, foi utilizado o conjunto de dados NSL-KDD, comum em sistemas de detecção de intrusões em redes. O dataset possui 41 atributos, divididos em três categorias: 
+
+    \begin{itemize}
+        \item Atributos básicos, como a duração da conexão, o protocolo de transporte utilizado e o volume de bytes transmitidos;
+        \item Atributos derivados, como o número de conexões simultâneas com o mesmo host, erros de fragmentação e número de tentativas de conexão;
+        \item Atributos de conteúdo, que fornecem informações detalhadas da atividade de rede, como tentativas de login mal-sucedidas e acessos a arquivos sensíveis, sendo particularmente relevantes para a identificação de padrões maliciosos.
+    \end{itemize}
+    
+    A variável-alvo para o modelo de classificação foi a coluna attack, que foi transformada em binária, representando ataques (True) ou tráfego legítimo (False).
+
+    Durante o pré-processamento dos dados, foram realizadas as seguintes etapas:
+
+    \begin{itemize}
+        \item Exclusão de colunas específicas, como os endereços IP de origem e destino, por representarem informações altamente específicas que não contribuem de forma geral para o treinamento de modelos de detecção e que poderiam introduzir viés nos resultados;
+    \item Codificação de atributos categóricos, por meio da técnica LabelEncoder, aplicada às colunas tcp, SF e ftp\_data;
+        \item Normalização do conjunto de dados utilizando o MaxAbsScaler, a fim de uniformizar a escala dos atributos e preservar a influência de valores extremos (outliers).
+    \end{itemize}
+    
+    Com exceção das colunas excluídas por motivos justificados, nenhum atributo foi removido do conjunto original. Todos os dados categóricos foram devidamente tratados para garantir a compatibilidade com os algoritmos de aprendizado de máquina empregados nesta pesquisa.
+    
+
+    Os ataques registrados no NSL-KDD estão classificados em quatro categorias principais:
+    
+    \begin{itemize}
+        \item DoS (Denial of Service): ataques voltados à indisponibilização de recursos do sistema, com seis classes;
+         \item R2L (Remote to Local): tentativas de acesso remoto não autorizado a sistemas locais, com sete classes;
+         \item U2R (User to Root): escalonamento de privilégios de um usuário comum para privilégios de administrador (root), com cinco classes;
+         \item Probe: varreduras na rede com o objetivo de identificar possíveis vulnerabilidades, com quatro classes.
+    \end{itemize}
+
+\hspace{1cm}
+
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{NormalAtaque.jpeg}
+        \caption{Ataque X Normal }
+        \label{tab:attack_datasets}
+    \end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{Dataset} & \textbf{Ano} & \textbf{Tipos de Ataque} & \textbf{Ataques} \\ \hline
+    NSL-KDD & 2009 & 4 & DoS,  R2L, U2R, Probe\\ \hline
+    \end{tabular}
+    \caption{Tipos de ataque | NSL-KDD}
+    \label{tab:attack_datasets}
+\end{table}
+
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{Classe} & \textbf{Quantidade} & \textbf{Categoria} \\ \hline
+    buffer\_overflow & 30 & U2R \\ \hline
+    loadmodule & 9 & U2R \\ \hline
+    perl & 3 & U2R \\ \hline
+    rootkit & 10 & U2R \\ \hline
+    spy & 2 & U2R \\ \hline
+    ftp\_write & 8 & R2L \\ \hline
+    guess\_passwd & 53 & R2L \\ \hline
+    imap & 11 & R2L \\ \hline
+    multihop & 7 & R2L \\ \hline
+    phf & 4 & R2L \\ \hline
+    warezclient & 890 & R2L \\ \hline
+    warezmaster & 20 & R2L \\ \hline
+    ipsweep & 3599 & Probe \\ \hline
+    nmap & 1493 & Probe \\ \hline
+    portsweep & 2931 & Probe \\ \hline
+    satan & 3633 & Probe \\ \hline
+    back & 956 & DoS \\ \hline
+    land & 18 & DoS \\ \hline
+    neptune & 41214 & DoS \\ \hline
+    pod & 201 & DoS \\ \hline
+    smurf & 2646 & DoS \\ \hline
+    teardrop & 892 & DoS \\ \hline
+    normal & 67343 & normal \\ \hline
+    \end{tabular}
+    \caption{Categorias de Ataque}
+    \label{tab:attack_datasets}
+\end{table}
+
+
+    
+    A escolha do dataset NSL-KDD justifica-se pela sua relevância, estrutura balanceada e ampla aceitação na literatura científica, servindo como uma base sólida para o desenvolvimento de modelos de detecção de intrusões mais eficazes e generalizáveis.
+        
+
+\subsection{Modelos ou Algoritmos Aplicados}
+
+Apresente os métodos utilizados de forma técnica e organizada. Inclua descrições dos algoritmos, modelos, arquiteturas e suas configurações mais relevantes.
+Indique bibliotecas, \textit{frameworks}, versões utilizadas e parâmetros adotados. Pseudocódigos ou trechos representativos podem ser úteis para ilustrar a lógica da solução. Justifique as escolhas metodológicas com base em referências da literatura ou em resultados preliminares~obtidos.
+
+\textit{Pergunta de autorregulação:} 
+Os métodos utilizados e suas respectivas configurações estão bem descritos e tecnicamente fundamentados? A solução foi apresentada com um nível de detalhamento suficiente para permitir sua~reprodução?
+
+\subsection{Ambiente de Execução}
+
+Descreva o ambiente computacional utilizado para treinar, testar e validar os modelos. Inclua detalhes sobre hardware (e.g., CPU, GPU, memória), sistema operacional, bibliotecas e ferramentas utilizadas.
+Isso contribui para a reprodutibilidade do~trabalho.
+
+\textit{Pergunta de autorregulação:} 
+Um leitor seria capaz de reproduzir o ambiente de execução com base nas informações fornecidas?
+O ambiente descrito é compatível com os requisitos da solução~proposta?
+
+\subsection{Protocolo Experimental}
+
+    Para validar a eficácia da solução proposta, adotou-se um protocolo experimental, com foco na avaliação quantitativa baseada em métricas recorrentes na literatura em Aprendizado de Máquina e Aprendizado Profundo. As métricas de desempenho utilizadas foram derivadas da matriz de confusão, a qual relaciona as classes reais e previstas pelos modelos. Essa matriz é composta por quatro elementos fundamentais:
+    
+    \hspace{1cm}
+    \begin{enumerate}[I]
+    \item Verdadeiro Positivo (VP): instâncias corretamente classificadas como ataque;
+    \item Falso Negativo (FN): ataques incorretamente classificados como tráfego normal;
+    \item Falso Positivo (FP): instâncias normais incorretamente classificadas como ataque;
+    \item Verdadeiro Negativo (VN): instâncias corretamente classificadas como normais.
+    \end{enumerate}
+    \hspace{1cm}
+
+    Com base nesses valores, calcularam-se as seguintes métricas:
+    
+    \hspace{1cm}
+    
+    Precisão (Precision): razão entre os ataques corretamente identificados e todas as instâncias classificadas como ataque:
+
+    \begin{equation}
+    \text { Precisão }=\frac{V P}{V P+F P}
+    \end{equation}
+    \hspace{1cm}
+    
+    Revocação (Recall) ou Taxa de Detecção: razão entre os ataques corretamente identificados e o total de ataques reais:
+
+    \begin{equation}
+    \text { Revocação }=\frac{V P}{V P+F N}
+    \end{equation}
+    \hspace{1cm}
+    
+    Taxa de Falso Alarme (False Alarm Rate): razão entre instâncias normais incorretamente classificadas como ataques e o total de instâncias normais:
+
+    \begin{equation}
+    \text { Taxa de Falso Alarme }=\frac{F P}{F P+V N}
+    \end{equation}
+    \hspace{1cm}
+    
+    Taxa de Verdadeiro Negativo (True Negative Rate): razão entre instâncias normais corretamente classificadas e o total de instâncias normais:
+
+    \begin{equation}
+    \text { Taxa de Verdadeiro Negativo }=\frac{V N}{V N+F P}
+    \end{equation}
+    \hspace{1cm}
+    
+    Acurácia (Accuracy): razão entre todas as classificações corretas (ataques e normais) e o total de instâncias:
+
+    \begin{equation}
+    \text { Acurácia }=\frac{V P+V N}{V P+V N+F P+F N}
+    \end{equation}
+    \hspace{1cm}
+
+    Tempo de Treinamento (Training Time): soma das diferenças entre o tempo de término e o tempo de início de cada batch durante o treinamento.
+    
+    Tempo de Inferência por Objeto (Inference Time): média das diferenças de tempo entre o início e o fim de cada rodada de inferência, dividida pela quantidade de objetos (imagens) em cada batch.
+    
+
+    \begin{table}[h]
+        \centering
+        \renewcommand{\arraystretch}{1.4}
+        \rowcolors{3}{gray!15}{white}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \rowcolor{gray!30}
+            \multicolumn{1}{|c|}{} & \multicolumn{2}{c|}{\textbf{Classe Prevista}} \\ \hline
+            \rowcolor{gray!30}
+            \textbf & \textbf{Ataque} & \textbf{Normal} \\ \hline
+            \textbf{Ataque} & Verdadeiro Positivo & Falso Negativo \\ \hline
+            \textbf{Normal} & Falso Positivo & Verdadeiro Negativo \\ \hline
+        \end{tabular}
+        \caption{Matriz de confusão}
+        \label{tab:matriz-confusao}
+    \end{table}
+
+
+    Essas métricas foram aplicadas na avaliação de desempenho dos modelos sobre conjuntos de dados públicos de referência, amplamente utilizados na área de detecção de intrusos em redes. Os experimentos incluíram a divisão dos dados em subconjuntos de treino e teste, utilizando a estratégia de validação cruzada, garantindo a imparcialidade dos resultados, alinhando o protocolo experimental aos objetivos e hipóteses do trabalho.
+    
+    O protocolo também considerou o trade-off entre desempenho e complexidade dos classificadores. Modelos rasos, como KNN e Random Forest, são eficientes com baixo custo computacional e mitigam parcialmente falhas frente a ataques desconhecidos, o KNN via clusterização e o Random Forest por meio de modelos especializados. No entanto, esses métodos dependem de padrões previamente conhecidos e podem falhar em cenários zero-day. Por isso, adotou-se o uso de CNNs, que reconhecem padrões contextuais e generalizam melhor, oferecendo maior robustez na detecção de ataques inéditos, ainda que com maior custo computacional.
+
+
+
+
+
+\textbf{Não esqueça de habilitar a seções de referências, ok !?}
+
+\begin{thebibliography}{00}
+
+
+    \bibitem{b1}BISWAS, Saroj Kr. Intrusion Detection Using Machine Learning: A Comparison Study. 2018. NIT Silchar.
+    
+    \bibitem{b2}AHMAD, Zeeshan et al. Network intrusion detection system: A systematic study of machine learning and deep learning approaches. 2020. UniversitiMalaysia Sarawak.
+    
+    \bibitem{b3} Nathan Shone; Tran Nguyen Ngoc; Vu Dinh Phai; Qi Shi  (February 2018), ''A Deep Learning Approach to Network Intrusion Detection'', Australian Journal of Mechanical Engineering, IEEE Transactions on Emerging Topics in Computational Intelligence ( Volume: 2, Issue: 1, February 2018)
+    
+    \bibitem{b4} Springer, Berlin, Heidelberg, ''Early Stopping - But When?'' Part of the book series: Lecture Notes in Computer Science ((LNCS,volume 1524))
+    
+    \bibitem{b5} Hanan Hindy,Robert Atkinson, Christos Tachtatzis,Jean-Noël Colin, Ethan Bayne, and Xavier Bellekens, (14 October 2020), ''Utilising Deep Learning Techniques for Effective Zero-Day Attack Detection'' ELECTRONIC COMMERCE RESEARCH AND APPLICATIONS, doi: https://doi.org/10.3390/electronics9101684
+    
+    \bibitem{b6} Akinul Islam Jony, Arjun Kumar Bose Arnob, (August 8, 2024), ''Securing the Internet of Things: Evaluating Machine Learning Algorithms for Detecting IoT Cyberattacks Using CIC-IoT2023 Dataset'', DOI: 10.5815/ijitcs.2024.04.04
+    
+    \bibitem{b7} Deepa Krishnan, Pravin Shrinath, 14 February 2024, ''Robust Botnet Detection Approach for Known and Unknown Attacks in IoT Networks Using Stacked Multi-classifier and Adaptive Thresholding''
+    
+    \bibitem{b8} Akinul Islam Jony, Arjun Kumar Bose Arnob, 2024 (Volume 16, Issue 4, pp.56-65), ''Securing the Internet of Things: Evaluating Machine Learning Algorithms for Detecting IoT Cyberattacks Using CIC-IoT2023 Dataset''
+    
+    \bibitem{b9} Charles Westphal, (18 Nov 2024), ''Feature Selection for Network Intrusion Detection'', https://doi.org/10.48550/arXiv.2411.11603
+    
+    \bibitem{b10} A. Pasumpon Pandian, 2021, ''Performance Evaluation and Comparison using Deep Learning Techniques in Sentiment Analysis'', DOI: https://doi.org/10.36548/jscp.2021.2.006
+    
+    \bibitem{b11} Sailesh Kumar, 19 Dec 2007, ''Survey of Current Network Intrusion Detection Techniques'', http://www.cse.wustl.edu/~jain/cse571-07/ftp/ids/
+    
+    \bibitem{b12} Nasrin Sultana1, Naveen Chilamkurti1, Wei Peng2, Rabei Alhadad, 26 December 2017, ''Survey on SDN based network intrusion detection system sing machine learning approaches'', https://doi.org/10.1007/s12083-017-0630-0
+    
+    \bibitem{b13} Hari Mohan Rai 1 , Joon Yoo 1,* and Saurabh Agarwal, 11 December 2024, ''The Improved Network Intrusion Detection Techniques Using the Feature Engineering Approach with, Boosting Classifiers'', https://www.mdpi.com/2227-7390/12/24/3909
+    
+\end{thebibliography}
+
+% GENERAL Python FAQ — Python 3.7.4 documentation. <https://docs.python.
+% org/3/faq/general.html#what-is-python>. Accessed: 2019-07-20.
+
+% Nagpal, A.; Gabrani, G. Python for data analytics, scientific and technical
+% applications. In: 2019 Amity International Conference on Artificial Intelligence
+% (AICAI). [S.l.: s.n.], 2019. p. 140–145.
+
+% M. Tavallaee, E. Bagheri, W. Lu and A. A. Ghorbani, "A detailed analysis of the KDD CUP 99 data set," 2009 IEEE Symposium on Computational Intelligence for Security and Defense Applications, Ottawa, ON, Canada, 2009, pp. 1-6, doi: 10.1109/CISDA.2009.5356528.
+
+
+
+\end{document}
