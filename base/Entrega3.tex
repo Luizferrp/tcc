@@ -106,6 +106,7 @@ Bacharelado em Ciência da Computação -- PUCPR\\
 
 \subsection{Dados Utilizados}
       
+    A escolha do dataset NSL-KDD justifica-se pela sua relevância, estrutura balanceada e ampla quantidade de registros e dados de tráfego de rede, que permitem treinamento e avaliação confiáveis\cite{b13}, essenciais para classificação genérica de um tipo "attack" aceitação na literatura científica, servindo como uma base sólida para o desenvolvimento de modelos de detecção de intrusões mais eficazes e generalizáveis.
     Nesta pesquisa, foi utilizado o conjunto de dados NSL-KDD, comum em sistemas de detecção de intrusões em redes. O dataset possui 41 atributos, divididos em três categorias: 
 
     \begin{itemize}
@@ -116,16 +117,15 @@ Bacharelado em Ciência da Computação -- PUCPR\\
     
     A variável-alvo para o modelo de classificação foi a coluna attack, que foi transformada em binária, representando ataques (True) ou tráfego legítimo (False).
 
-    Durante o pré-processamento dos dados, foram realizadas as seguintes etapas:
-
-    \begin{itemize}
-        \item Exclusão de colunas específicas, como os endereços IP de origem e destino, por representarem informações altamente específicas que não contribuem de forma geral para o treinamento de modelos de detecção e que poderiam introduzir viés nos resultados;
-    \item Codificação de atributos categóricos, por meio da técnica LabelEncoder, aplicada às colunas tcp, SF e ftp\_data;
-        \item Normalização do conjunto de dados utilizando o MaxAbsScaler, a fim de uniformizar a escala dos atributos e preservar a influência de valores extremos (outliers).
-    \end{itemize}
+    Durante o pré-processamento dos dados, foram realizadas as etapas de normalização do conjunto de dados utilizando o MaxAbsScaler e o LabelEncoder para variáveis numéricas, permitindo tanto a cnn interpretar corretamente a dimensionalidade ao converter em imagem (\textit{Figura 1}), quanto modelos rasos não terem vieses quanto ao uniformalização da escala dos atributos e preservar a influência de valores extremos (outliers - possiveis attacks).
+    \end{itemize}  
     
-    Com exceção das colunas excluídas por motivos justificados, nenhum atributo foi removido do conjunto original. Todos os dados categóricos foram devidamente tratados para garantir a compatibilidade com os algoritmos de aprendizado de máquina empregados nesta pesquisa.
-    
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{NormalAtaque.jpeg}
+        \caption{Exemplo de entrada da CNN, Ataque X Normal }
+        \label{tab:attack_datasets}
+    \end{figure}
 
     Os ataques registrados no NSL-KDD estão classificados em quatro categorias principais:
     
@@ -137,14 +137,6 @@ Bacharelado em Ciência da Computação -- PUCPR\\
     \end{itemize}
 
 \hspace{1cm}
-
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\linewidth]{NormalAtaque.jpeg}
-        \caption{Ataque X Normal }
-        \label{tab:attack_datasets}
-    \end{figure}
 
 \begin{table}[h]
     \centering
@@ -191,23 +183,36 @@ Bacharelado em Ciência da Computação -- PUCPR\\
     \caption{Categorias de Ataque}
     \label{tab:attack_datasets}
 \end{table}
-
-
-    
-    A escolha do dataset NSL-KDD justifica-se pela sua relevância, estrutura balanceada e ampla aceitação na literatura científica, servindo como uma base sólida para o desenvolvimento de modelos de detecção de intrusões mais eficazes e generalizáveis.
         
 
 \subsection{Modelos ou Algoritmos Aplicados}
 
-Apresente os métodos utilizados de forma técnica e organizada. Inclua descrições dos algoritmos, modelos, arquiteturas e suas configurações mais relevantes.
-Indique bibliotecas, \textit{frameworks}, versões utilizadas e parâmetros adotados. Pseudocódigos ou trechos representativos podem ser úteis para ilustrar a lógica da solução. Justifique as escolhas metodológicas com base em referências da literatura ou em resultados preliminares~obtidos.
+Foram utilizados principalmente dois frameworks: Torch e Scikit learn, para classificadores rasos e profundos respectivamente.
 
-\textit{Pergunta de autorregulação:} 
-Os métodos utilizados e suas respectivas configurações estão bem descritos e tecnicamente fundamentados? A solução foi apresentada com um nível de detalhamento suficiente para permitir sua~reprodução?
+Os Foram utilizados dois modelos clássicos de redes neurais convolucionais (CNN): 
+    A AlexNet é uma rede neural convolucional profunda estado da arte quanto a detecção de componentes
+    
+    A GoogleLeNet introduziu a ideia de módulos Inception, permitindo uma maior profundidade e complexidade na arquitetura da rede.
+    
+    Ambas as arquiteturas foram escolhidas devido à sua eficácia comprovada em tarefas de classificação de imagens e sua capacidade de lidar com grandes volumes de dados, tornando-as adequadas para a detecção de intrusões em redes.
+    Além disso, foram utilizados três classificadores tradicionais: K-Nearest Neighbors (KNN, usando 5 vizinhos), Decision Tree e Random Forest. O KNN é um algoritmo de aprendizado supervisionado que classifica os dados com base na proximidade a outros pontos de dados, enquanto a Decision Tree utiliza uma estrutura hierárquica para tomar decisões com base em atributos dos dados. O Random Forest combina múltiplas árvores de decisão para melhorar a precisão e reduzir o risco de overfitting.
+    Esses classificadores foram escolhidos devido à sua simplicidade e eficácia em tarefas de classificação, além de serem amplamente utilizados na literatura científica\cite{b6}. A comparação entre os modelos clássicos e as CNNs permitirá avaliar a eficácia das abordagens tradicionais em relação às técnicas mais avançadas de aprendizado profundo, contribuindo para a identificação de soluções mais robustas e eficientes na detecção de intrusões em redes.
+
 
 \subsection{Ambiente de Execução}
 
-Descreva o ambiente computacional utilizado para treinar, testar e validar os modelos. Inclua detalhes sobre hardware (e.g., CPU, GPU, memória), sistema operacional, bibliotecas e ferramentas utilizadas.
+As condições de execução dos experimentos foram realizadas em um ambiente computacional que requer as seguintes caracteristicas:
+cpu, nesse caso foram usados 4/8 cores/threads de alta performace, especialmente para o treinamento de modelos de aprendizado raso, 
+Hardware com suporte a CUDA ou MPS para aceleração de hardware, especialmente para o treinamento de modelos de aprendizado profundo, como as CNNs. O sistema operacional utilizado foi Linux com a kernel 6.13.
+a quantidade de ram recomendada é de 16GB, com 8GB de swap, para garantir que o sistema tenha memória suficiente para lidar com os dados e os modelos durante o treinamento e a inferência. Além de pelo menos 2gb de vram
+Expecialmente no caso de VRAM, no caso de mais ou menos (especialmente no caso de MPS que pode ser configurado pra usar a RAM de forma compartilhada ainda tendo alta bandwidth) o tamanho do batch pode ser ajustado para garantir que o modelo funcione corretamente. O tamanho do batch é um parâmetro importante que afeta o desempenho e a eficiência do treinamento de modelos de aprendizado profundo. Um tamanho de batch muito grande pode levar a problemas de memória, enquanto um tamanho muito pequeno pode resultar em um treinamento mais lento e menos eficiente, ja que isso limita o processo de transição dos modelos de uma lado a outro. no entanto o tempo de avaliação em si de cada sample não deve ser afetado.
+O modelo exato da cpu e da gpu devem afetar o resultado de forma linear, mas proporcionamente a compação deve se manter, para efeitos de comparação, foi usado um I5 10th com uma MX250. 
+
+Os requisitos de software incluem a instalação do Python 3.8 ou superior, juntamente com as bibliotecas necessárias, como PyTorch, Scikit-learn, Pandas e Matplotlib e Drivers Cuda compativeis com a versão do Torch escolhida, da qual deve ser principalmente compátivel com as kernels nn do Torch que são as utilizadas no projeto.
+
+Algumas bibliotecas extras podem ter ser adicionadas para efeitos visuais durante o treinamento, mas nao ligadas com o tempo de treino ou avaliação.
+
+    \textit{Pergunta de
 Isso contribui para a reprodutibilidade do~trabalho.
 
 \textit{Pergunta de autorregulação:} 
