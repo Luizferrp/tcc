@@ -1,4 +1,4 @@
-from .train import train
+from .train import Epoch
 from .ToImage import ToImage
 from .preparation import preparation
 from .fromCD2DL2Data import fromCD2DL2Data
@@ -10,69 +10,45 @@ import numpy as np
 import random
 import torch
 
-class mmodel:
-    def __init__(self, name):
-        self.name = name
-    
-    def data(path_data:str, buffer:int) -> None:
-        pass
-
-    def buffer(path_out:str) -> None:
-        pass
-
-    def train(epoch:str) -> None:
-        pass
-
-    def validate(epoch:str) -> None:
-        pass
-
-    def epoch() -> None:
-        pass
-
-def make(EPOCHS: int, BATCH_SIZE: int, LEARNING_RATE: int, csv_path: str, out_path:str, MODEL: nn.Module, SEED:int = 1701, xcol: int=1, transform: transforms=transforms.Compose([ ToImage() ])) -> tuple:
+def make(model: nn.Module, epocs: int, batch_size: int, csv_path: str, xcol: int=1, lr: int=1e-3, transform: transforms=transforms.Compose([ ToImage() ])) -> tuple:
     
     loss_fn   = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(MODEL.parameters(), lr=LEARNING_RATE)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
 
     x_train, x_test, y_train, y_test = preparation(csv_path, xcol)
 
     data_test = fromCD2DL2Data(x_train, y_train, transform, 128)
     data_train = fromCD2DL2Data(x_test, y_test, transform, 128)
-    
-    for epoch in range(1, EPOCHS+1):
-        register(train(epoch, optimizer, loss_fn, MODEL, data_train), f'{out_path}-train--{epoch}')
-        register(validate(epoch, loss_fn, MODEL, data_test), f'{out_path}-valid--{epoch}')
+    ttmetrics = {'treino':[], 'teste':[]}
+    for epoch in range(1, epocs+1):
+        metrics = Epoch(
+            epoch=1,
+            optimizer=optimizer,
+            loss_fn=loss_fn,
+            MODEL=model.train(),
+            dataset=data_train,
+            device=torch.device('cpu'),
+            salvar_em="./resultados",
+            class_names=["normal", "ataque"]
+        )
+        ttmetrics['treino'].append(metrics)
+        metrics = Epoch(
+            epoch=1,
+            optimizer=optimizer,
+            loss_fn=loss_fn,
+            MODEL=model.eval(),
+            dataset=data_test,
+            device=torch.device('cpu'),
+            salvar_em="./resultados",
+            class_names=["normal", "ataque"]
+        )
+        ttmetrics['teste'].append(metrics)
+
+
+        # register(, f'{out_path}-train--{epoch}')
+        # register(, f'{out_path}-valid--{epoch}')
         #print(valid_m[epoch-1]["confusion_matrix"])
     
     print("Finished experiment!") 
     return MODEL
 
-def make2(model:object, epoch:int, buffer:int, path_data:str, path_out:str='output', seed:int = 91) -> dict:
-
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-    model.data(path_data, buffer)
-    model.buffer(path_out)
-
-    for epoch in range(1, epoch):
-        model.train(epoch)
-        model.validate(epoch)
-
-    print('finish')
-    return model
-    
-def make3(model:object, epoch:int, buffer:int, path_data:str, path_out:str='output', seed:int = 91) -> dict:
-
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-    model.data(path_data, buffer)
-    model.buffer(path_out)
-
-    while model.epoch() :
-        model.train(epoch)
-        model.validate(epoch)
-
-    print('finish')
-    return model

@@ -106,7 +106,7 @@ Bacharelado em Ciência da Computação -- PUCPR\\
 
 \subsection{Dados Utilizados}
       
-    A escolha do dataset NSL-KDD justifica-se pela sua relevância, estrutura balanceada e ampla quantidade de registros e dados de tráfego de rede, que permitem treinamento e avaliação confiáveis\cite{b13}, essenciais para classificação genérica de um tipo "attack" aceitação na literatura científica, servindo como uma base sólida para o desenvolvimento de modelos de detecção de intrusões mais eficazes e generalizáveis.
+    A escolha do dataset NSL-KDD justifica-se pela sua relevância, estrutura balanceada e ampla quantidade de registros (\textit{Tabela 1} \textit{Tabela 2}) e dados de tráfego de rede, que permitem treinamento e avaliação confiáveis\cite{b13}, essenciais para classificação genérica de um tipo "attack" aceitação na literatura científica, servindo como uma base sólida para o desenvolvimento de modelos de detecção de intrusões mais eficazes e generalizáveis.
     Nesta pesquisa, foi utilizado o conjunto de dados NSL-KDD, comum em sistemas de detecção de intrusões em redes. O dataset possui 41 atributos, divididos em três categorias: 
 
     \begin{itemize}
@@ -117,7 +117,7 @@ Bacharelado em Ciência da Computação -- PUCPR\\
     
     A variável-alvo para o modelo de classificação foi a coluna attack, que foi transformada em binária, representando ataques (True) ou tráfego legítimo (False).
 
-    Durante o pré-processamento dos dados, foram realizadas as etapas de normalização do conjunto de dados utilizando o MaxAbsScaler e o LabelEncoder para variáveis numéricas, permitindo tanto a cnn interpretar corretamente a dimensionalidade ao converter em imagem (\textit{Figura 1}), quanto modelos rasos não terem vieses quanto ao uniformalização da escala dos atributos e preservar a influência de valores extremos (outliers - possiveis attacks).
+    Durante o pré-processamento dos dados, foram realizadas as etapas de normalização do conjunto de dados utilizando o MaxAbsScaler e o LabelEncoder para variáveis numéricas, permitindo tanto a cnn interpretar corretamente a dimensionalidade ao converter em imagem (\textit{Figura 2}), quanto modelos rasos não terem vieses quanto ao uniformalização da escala dos atributos e preservar a influência de valores extremos (outliers - possiveis attacks).
     \end{itemize}  
     
     \begin{figure}
@@ -212,16 +212,9 @@ Os requisitos de software incluem a instalação do Python 3.8 ou superior, junt
 
 Algumas bibliotecas extras podem ter ser adicionadas para efeitos visuais durante o treinamento, mas nao ligadas com o tempo de treino ou avaliação.
 
-    \textit{Pergunta de
-Isso contribui para a reprodutibilidade do~trabalho.
-
-\textit{Pergunta de autorregulação:} 
-Um leitor seria capaz de reproduzir o ambiente de execução com base nas informações fornecidas?
-O ambiente descrito é compatível com os requisitos da solução~proposta?
-
 \subsection{Protocolo Experimental}
 
-    Para validar a eficácia da solução proposta, adotou-se um protocolo experimental, com foco na avaliação quantitativa baseada em métricas recorrentes na literatura em Aprendizado de Máquina e Aprendizado Profundo. As métricas de desempenho utilizadas foram derivadas da matriz de confusão, a qual relaciona as classes reais e previstas pelos modelos. Essa matriz é composta por quatro elementos fundamentais:
+    Para validar a eficácia da solução proposta, adotou-se um protocolo experimental, com foco na avaliação quantitativa baseada em métricas recorrentes na literatura em Aprendizado de Máquina e Aprendizado Profundo. As métricas de desempenho utilizadas foram derivadas da matriz de confusão(\textit{Tabela 3}), a qual relaciona as classes reais e previstas pelos modelos. Essa matriz é composta por quatro elementos fundamentais:
     
     \hspace{1cm}
     \begin{enumerate}[I]

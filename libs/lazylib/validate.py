@@ -75,8 +75,7 @@ def takeRocCurve(metrics: list) -> plt:
     plt.show()
 
 def register(metrics: dict, name: str):
-    with open(f'{name}.txt', 'wb') as file:
-        pickle.dump(metrics, file)
+    return metrics
 
 def takemetrics(path: str) -> dict:
     with open(path, 'rb') as file:
