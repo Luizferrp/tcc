@@ -6,6 +6,7 @@ from .models.AlexNet import AlexNet
 from .models.AlexNetEE import AlexNetEE
 from .models.GoogleLeNet import GoogLeNet
 from .models.GoogleLeNetEE import GoogleLeNetEE
+from .models.MobileNetV2 import MobileNetV2
 
 
 def takeFromDisk(path:str):

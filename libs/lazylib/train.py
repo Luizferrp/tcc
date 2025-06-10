@@ -72,14 +72,13 @@ import numpy as np
 
 
 def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salvar_em=None, class_names=None):
-    MODEL.train()
-    y_true = []
+    pred_labels = []
+    true_labels = []
     y_scores = []
+    y_true = []
     running_loss = 0.0
     correct = 0
     total = 0
-    pred_labels = []
-    true_labels = []
 
     if salvar_em:
         os.makedirs(salvar_em, exist_ok=True)
@@ -119,8 +118,52 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
     roc = roc_auc_score(true_labels, y_scores)
     cm = confusion_matrix(true_labels, pred_labels)
     report = classification_report(true_labels, pred_labels, target_names=class_names, digits=4)
+    fpr, tpr, _ = roc_curve(true_labels, y_scores)
+    return {
+        "epoch": epoch,
+        "loss": running_loss / len(dataset),
+        "accuracy": acc,
+        "f1": f1,
+        "precision": prec,
+        "recall": rec,
+        "roc_auc": roc,
+        "confusion_matrix": cm,
+        "roc_curve": (fpr, tpr),
+        "classification_report": report,
+        "Precision-Recall" : precision_recall_curve(true_labels, y_scores)
+    }
 
-    print(f"\nEpoch {epoch} Metrics:")
+from sklearn.metrics import (
+    roc_auc_score, confusion_matrix, classification_report, 
+    accuracy_score, f1_score, precision_score, recall_score, 
+    roc_curve, precision_recall_curve, ConfusionMatrixDisplay, RocCurveDisplay
+)
+import matplotlib.pyplot as plt
+import os
+
+def Epoch_anal(run_dict, class_names=None, salvar_em=None):
+    """
+    Exibe métricas e gráficos de avaliação para uma época de treinamento.
+    
+    Parâmetros:
+    - run_dict: dicionário com métricas e dados retornados por uma época.
+    - class_names: nomes das classes (para matriz de confusão).
+    - true_labels: rótulos verdadeiros (para curvas ROC e PR).
+    - y_scores: probabilidades previstas (para curvas ROC e PR).
+    - salvar_em: diretório para salvar os gráficos (opcional).
+    """
+    # Extrai os dados do dicionário
+    epoch = run_dict["epoch"]
+    acc = run_dict["accuracy"]
+    f1 = run_dict["f1"]
+    prec = run_dict["precision"]
+    rec = run_dict["recall"]
+    roc = run_dict["roc_auc"]
+    cm = run_dict["confusion_matrix"]
+    report = run_dict["classification_report"]
+    
+    # Impressão das métricas
+    print(f"Epoch {epoch}")
     print(f"Accuracy: {acc:.4f}")
     print(f"F1 Score: {f1:.4f}")
     print(f"Precision: {prec:.4f}")
@@ -137,34 +180,30 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
     axes[0].set_title("Matriz de Confusão")
 
     # Curva ROC
-    fpr, tpr, _ = roc_curve(true_labels, y_scores)
-    RocCurveDisplay(fpr=fpr, tpr=tpr).plot(ax=axes[1])
-    axes[1].set_title("Curva ROC")
+    if run_dict['roc_curve']:
+        fpr, tpr = run_dict['roc_curve']
+        RocCurveDisplay(fpr=fpr, tpr=tpr).plot(ax=axes[1])
+        axes[1].set_title("Curva ROC")
 
-    # Precision-Recall
-    precision, recall, _ = precision_recall_curve(true_labels, y_scores)
-    axes[2].plot(recall, precision)
-    axes[2].set_title("Curva Precision-Recall")
-    axes[2].set_xlabel("Recall")
-    axes[2].set_ylabel("Precision")
+        # Precision-Recall
+        precision, recall, _= run_dict["Precision-Recall"]
+        axes[2].plot(recall, precision)
+        axes[2].set_title("Curva Precision-Recall")
+        axes[2].set_xlabel("Recall")
+        axes[2].set_ylabel("Precision")
+    else:
+        axes[1].axis("off")
+        axes[2].axis("off")
+        axes[1].text(0.5, 0.5, "ROC/PR Curve indisponíveis", ha="center", va="center")
+        axes[2].text(0.5, 0.5, "ROC/PR Curve indisponíveis", ha="center", va="center")
 
     plt.tight_layout()
 
+    # Salva o gráfico se necessário
     if salvar_em:
+        os.makedirs(salvar_em, exist_ok=True)
         caminho = os.path.join(salvar_em, f"epoch_{epoch}_metricas.png")
         plt.savefig(caminho)
         print(f"Gráfico salvo em: {caminho}")
-    plt.show()
 
-    return {
-        "epoch": epoch,
-        "loss": running_loss / len(dataset),
-        "accuracy": acc,
-        "f1": f1,
-        "precision": prec,
-        "recall": rec,
-        "roc_auc": roc,
-        "confusion_matrix": cm,
-        "roc_curve": (fpr, tpr),
-        "classification_report": report
-    }
+    plt.show()
