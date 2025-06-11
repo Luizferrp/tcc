@@ -25,4 +25,4 @@ from functools import cache
 #         return None
     
 def device():
-    return 'cpu'
+    return 'cuda'

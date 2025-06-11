@@ -6,58 +6,7 @@ from tqdm import tqdm
 from .device import device
 from torch import nn
 
-def train(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset:DataLoader) -> dict:
-    # Put the MODEL in the training mode    
-    MODEL.train()
-    y_true = []
-    y_scores = []
-    running_loss = 0.0
-    correct = 0
-    total = 0
-    ym = ([], [])
-    qt = 0
-
-    it = tqdm(enumerate(dataset), total=len(dataset))
-
-    for _, (x, y) in it:
-        x = x.to(device())
-        y = y.to(device())
-                
-        # Make predictions for this batch
-        output = MODEL(x)
-
-        # Zero your gradients for every batch!
-        optimizer.zero_grad()
-        loss = loss_fn(output, y)
-        loss.backward()
-        y_true.extend(y.cpu().numpy())
-        y_scores.extend(output[:, 1].cpu().detach().numpy())  # Assuming output[:, 1] is probability of positive class
-        # Adjust learning weights
-        optimizer.step()
-        correct += torch.sum(torch.argmax(output, 1).eq(y)).item()
-        total += y.size(0)
-        qt += len(x)
-        ym[0].extend(torch.argmax(output, 1).cpu().numpy())
-        ym[1].extend(y.data.cpu().numpy())
-
-        # Gather data and report
-        running_loss += loss.item()
-        n = now()
-        it.set_description(f"[{n}] Epoch {str(epoch).zfill(3)} Acc: {correct/qt:.4f} Loss: {running_loss / len(dataset):.8f}")
-    fpr, tpr, thresholds = roc_curve(y_true, y_scores)
-    auc = roc_auc_score(y_true, y_scores)
-    
-    # Loss / Accuracy
-    return dict({
-            "epoch": epoch,
-            "vsal_loss": running_loss / len(dataset),
-            "val_accuracy": correct / total,
-            "roc_curve": (fpr, tpr, thresholds),
-            "auc": auc,
-            "metricsFromY":ym,
-            "confusion_matrix":confusion_matrix(y_true, ym[0])
-        })
-
+import time
 import os
 import torch
 from torch import nn
@@ -80,6 +29,9 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
     correct = 0
     total = 0
 
+    total_inference_time = 0.0
+    total_samples = 0
+
     if salvar_em:
         os.makedirs(salvar_em, exist_ok=True)
 
@@ -90,17 +42,24 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
         y = y.to(device)
 
         optimizer.zero_grad()
+
+        # Medir tempo de inferência
+        start_time = time.time()
         output = MODEL(x)
+        end_time = time.time()
+
+        total_inference_time += (end_time - start_time)
+        total_samples += x.size(0)
+
         loss = loss_fn(output, y)
         loss.backward()
         optimizer.step()
 
-        # Store predictions and ground truth
         probs = torch.softmax(output, dim=1)
         pred = torch.argmax(probs, dim=1)
 
         y_true.extend(y.cpu().numpy())
-        y_scores.extend(probs[:, 1].detach().cpu().numpy())  # Probabilidade da classe 1
+        y_scores.extend(probs[:, 1].detach().cpu().numpy())
         pred_labels.extend(pred.cpu().numpy())
         true_labels.extend(y.cpu().numpy())
 
@@ -110,7 +69,7 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
 
         it.set_postfix(acc=correct/total, loss=running_loss/len(dataset))
 
-    # Cálculo de métricas
+    # Métricas
     acc = accuracy_score(true_labels, pred_labels)
     f1 = f1_score(true_labels, pred_labels, pos_label=1)
     prec = precision_score(true_labels, pred_labels, pos_label=1)
@@ -119,6 +78,12 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
     cm = confusion_matrix(true_labels, pred_labels)
     report = classification_report(true_labels, pred_labels, target_names=class_names, digits=4)
     fpr, tpr, _ = roc_curve(true_labels, y_scores)
+    pr_precision, pr_recall, pr_thresholds = precision_recall_curve(true_labels, y_scores)
+
+    avg_inference_time = total_inference_time / total_samples
+    avg_inference_str = f"{avg_inference_time * 1e6:.3f} µs"
+
+
     return {
         "epoch": epoch,
         "loss": running_loss / len(dataset),
@@ -130,7 +95,10 @@ def Epoch(epoch:int, optimizer, loss_fn, MODEL:nn.Module, dataset, device, salva
         "confusion_matrix": cm,
         "roc_curve": (fpr, tpr),
         "classification_report": report,
-        "Precision-Recall" : precision_recall_curve(true_labels, y_scores)
+        "Precision-Recall": (pr_precision, pr_recall, pr_thresholds),
+        "inference_total_time": total_inference_time,
+        "inference_avg_time_per_sample": avg_inference_time,
+        "avg_inference_str": avg_inference_str
     }
 
 from sklearn.metrics import (
@@ -169,6 +137,7 @@ def Epoch_anal(run_dict, class_names=None, salvar_em=None):
     print(f"Precision: {prec:.4f}")
     print(f"Recall: {rec:.4f}")
     print(f"ROC AUC: {roc:.4f}")
+    print(run_dict["avg_inference_str"])
     print(report)
 
     # Gráfico
